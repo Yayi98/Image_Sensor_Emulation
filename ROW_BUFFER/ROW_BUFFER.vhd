@@ -16,17 +16,12 @@ use IEEE.std_logic_unsigned.all;
 entity ROW_BUFFER is
     port (
         clk, wr, load, bit_md : in std_logic;                                              --bit_md: update shift register with new data
-<<<<<<< HEAD
 		rd,ready : out std_logic;                                                          --ready indicator for synthesizer
-=======
-        rd,ready : out std_logic;                                                          --ready indicator for synthesizer
->>>>>>> origin/master
         data     : in std_logic_vector(11 downto 0);
         shift    : in std_logic_vector(127 downto 0);	                                   --shift control lines
         rm_addr  : out std_logic_vector(12 downto 0);                                      --address for ram
         pxdata   : out std_logic_vector(127 downto 0));		 	                           --pixel data for serializer
 end ROW_BUFFER;
-	
 architecture Behavioral of ROW_BUFFER is
 
     subtype row is std_logic_vector(11 downto 0);
@@ -67,47 +62,28 @@ begin
 
                 elsif last_wr_flag = '1' then
 
-<<<<<<< HEAD
 				    for I in 0 to 127 loop						                            --updating shift register after last write
                         shift_reg(I) := row_var(I, bit_ch);
                     end loop;
 
 					ready   <= '1';
 					ld_flag := '0';
-=======
-	            for I in 0 to 127 loop						     --updating shift register after last write
-                        shift_reg(I) := row_var(I, bit_ch);
-                    end loop;
-
-		    ready   <= '1';
-		    ld_flag := '0';
->>>>>>> origin/master
 
                 else
                     rd <= '1';
                     rm_addr <= addr;
                     wr_flag := '1';
 
-<<<<<<< HEAD
 					if addr = x"1FFF" then
 					    last_wr_flag := '1';
 					end if;
-=======
-		    if addr = x"1FFF" then
-			last_wr_flag := '1';
-		    end if;
->>>>>>> origin/master
 
                 end if;
 
             else
 
                 if bit_md = '1' then
-<<<<<<< HEAD
 				    bit_ch := bit_ch + 1;
-=======
-		    bit_ch := bit_ch + 1;
->>>>>>> origin/master
 
                     for I in 0 to 127 loop
                         shift_reg(I) := row_var(I, bit_ch);
@@ -125,11 +101,7 @@ begin
                 end loop;
 
             end if;
-<<<<<<< HEAD
 		end if;
-=======
-	end if;
->>>>>>> origin/master
 
     end process;
 
