@@ -1,10 +1,10 @@
 ----------------------------------------------------------------------------
 --  ROW_BUFFER_test.vhd
 --
---	This program is free software: you can redistribute it and/or
---	modify it under the terms of the GNU General Public License
---	as published by the Free Software Foundation, either version
---	2 of the License, or (at your option) any later version.
+--  This program is free software: you can redistribute it and/or
+--  modify it under the terms of the GNU General Public License
+--  as published by the Free Software Foundation, either version
+--  2 of the License, or (at your option) any later version.
 --
 ----------------------------------------------------------------------------
 
@@ -60,28 +60,28 @@ begin
         pxdata  => pxdata
     );
     clk_process : process
-	 
+
     begin
-	 
+
         clk <= '0';
         wait for clk_period/2;
         clk <= '1';
         wait for clk_period/2;
-		  
+
     end process;
-	 
-	 
+
+
     stim_proc : process
-	 
+
         variable ld_flag : std_logic := '1';
         variable rand : real;
         variable seed1, seed2 : positive;
         variable int_rand : integer;
         variable stim : std_logic_vector(11 downto 0);
         variable count : integer range 0 to 12 := 0;
-		  
+
     begin
-	 
+
         if ld_flag = '1' then
             load <= '1';
             wait for clk_period;
@@ -89,7 +89,7 @@ begin
             wait for clk_period/2;
             ld_flag := '0';
         end if;
-		  
+
         if rd = '1' then
             wr <= '1';
             UNIFORM(seed1, seed2, rand);
@@ -98,7 +98,7 @@ begin
             data <= stim;
         elsif ready = '1' then
             wr <= '0';
-				
+
             if count = 11 then
                 count := 0;
                 bit_md <= '1';
@@ -108,10 +108,10 @@ begin
                 count := count + 1;
                 bit_md <= '0';
             end if;
-				
+
         end if;
-		  
+
         wait for clk_period;
-		  
+
     end process;
 end;
