@@ -1,10 +1,10 @@
 ----------------------------------------------------------------------------
 --  ROW_BUFFER.vhd
 --
---	This program is free software: you can redistribute it and/or
---	modify it under the terms of the GNU General Public License
---	as published by the Free Software Foundation, either version
---	2 of the License, or (at your option) any later version.
+--  This program is free software: you can redistribute it and/or
+--  modify it under the terms of the GNU General Public License
+--  as published by the Free Software Foundation, either version
+--  2 of the License, or (at your option) any later version.
 --
 ----------------------------------------------------------------------------
 
@@ -18,9 +18,9 @@ entity ROW_BUFFER is
         clk, wr, load, bit_md : in std_logic;                                          --bit_md: update shift register with new data
         rd,ready : out std_logic;                                                      --ready indicator for synthesizer
         data     : in std_logic_vector(11 downto 0);
-        shift    : in std_logic_vector(127 downto 0);	                                 --shift control lines
+        shift    : in std_logic_vector(127 downto 0);                                  --shift control lines
         rm_addr  : out std_logic_vector(12 downto 0);                                  --address for ram
-        pxdata   : out std_logic_vector(127 downto 0));		 	                           --pixel data for serializer
+        pxdata   : out std_logic_vector(127 downto 0));                                --pixel data for serializer
 end ROW_BUFFER;
 architecture Behavioral of ROW_BUFFER is
 
@@ -62,12 +62,12 @@ begin
 
                 elsif last_wr_flag = '1' then
 
-                    for I in 0 to 127 loop						                                     --updating shift register after last write
+                    for I in 0 to 127 loop                                                 --updating shift register after last write
                         shift_reg(I) := row_var(I, bit_ch);
                     end loop;
 
-            	      ready   <= '1';
-            	      ld_flag := '0';
+                    ready   <= '1';
+                    ld_flag := '0';
 
                 else
                     rd <= '1';
