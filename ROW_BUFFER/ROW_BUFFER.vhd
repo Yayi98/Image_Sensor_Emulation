@@ -16,12 +16,13 @@ use IEEE.std_logic_unsigned.all;
 entity ROW_BUFFER is
     port (
         clk, wr, load, bit_md : in std_logic;                                              --bit_md: update shift register with new data
-		    rd,ready : out std_logic;                                                          --ready indicator for synthesizer
+        rd,ready : out std_logic;                                                          --ready indicator for synthesizer
         data     : in std_logic_vector(11 downto 0);
         shift    : in std_logic_vector(127 downto 0);	                                     --shift control lines
         rm_addr  : out std_logic_vector(12 downto 0);                                      --address for ram
         pxdata   : out std_logic_vector(127 downto 0));		 	                               --pixel data for serializer
 end ROW_BUFFER;
+	
 architecture Behavioral of ROW_BUFFER is
 
     subtype row is std_logic_vector(11 downto 0);
@@ -62,28 +63,28 @@ main_proc: process (clk, data, wr, load) is
 
                 elsif last_wr_flag = '1' then
 
-						        for I in 0 to 127 loop						                                      --updating shift register after last write
+	            for I in 0 to 127 loop						     --updating shift register after last write
                         shift_reg(I) := row_var(I, bit_ch);
                     end loop;
 
-						        ready   <= '1';
-						        ld_flag := '0';
+		    ready   <= '1';
+		    ld_flag := '0';
 
                 else
                     rd <= '1';
                     rm_addr <= addr;
                     wr_flag := '1';
 
-						        if addr = x"1FFF" then
-						            last_wr_flag := '1';
-						        end if;
+		    if addr = x"1FFF" then
+			last_wr_flag := '1';
+		    end if;
 
                 end if;
 
             else
 
                 if bit_md = '1' then
-				        bit_ch := bit_ch + 1;
+		    bit_ch := bit_ch + 1;
 
                     for I in 0 to 127 loop
                         shift_reg(I) := row_var(I, bit_ch);
@@ -101,7 +102,7 @@ main_proc: process (clk, data, wr, load) is
                 end loop;
 
             end if;
-				end if;
+	end if;
 
     end process;
 
