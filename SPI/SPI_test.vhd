@@ -66,11 +66,14 @@ begin
 
     -- Clock process definitions
     spi_clk_process : process
+
     begin
+
         spi_clk <= '0';
         wait for spi_clk_period/2;
         spi_clk <= '1';
         wait for spi_clk_period/2;
+        
     end process;
     -- Stimulus process
     stim_proc : process
@@ -90,7 +93,7 @@ begin
         end loop;
 
         if rd_wr = '1' then
-          
+
             for i in 0 to 15 loop
                 wait for spi_clk_period;
                 spi_in <= data_con(i);
