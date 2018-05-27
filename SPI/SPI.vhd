@@ -37,6 +37,7 @@ begin
                 if a_temp = 7 then
                     a_temp := a_temp - 1;
                     rd_wr_fl := spi_in;
+                    wr <= '0';
 
                 elsif a_temp = 0 and rd_wr_fl = '0' then
                     addr_var(a_temp) := spi_in;
@@ -48,24 +49,25 @@ begin
                     addr_var(a_temp) := spi_in;
                     a_temp := a_temp - 1;
 
-                elsif rd_wr_fl = '1' and d_temp >- 1 then
+                elsif rd_wr_fl = '1' and d_temp > 0 then
                     data_var(d_temp) := spi_in;
                     d_temp := d_temp - 1;
 
-                elsif rd_wr_fl = '0' and d_temp >- 1 then
+                elsif rd_wr_fl = '0' and d_temp > 0 then
                     d_temp := d_temp - 1;
 
-                elsif rd_wr_fl = '1' and d_temp =- 1 then
+                elsif rd_wr_fl = '0' and d_temp = 0 then
+                    d_temp := 15;
+                    a_temp := 7;
+                    tr_strt <= '0';
+                    rd <= '0';
+
+                elsif rd_wr_fl = '1' and d_temp = 0 then
+                    data_var(d_temp) := spi_in;
                     data <= data_var;
                     wr <= '1';
-                    d_temp := d_temp - 1;
-
-                else
-                    rd <= '0';
-                    wr <= '0';
-                    tr_strt <= '0';
-                    a_temp := 7;
                     d_temp := 15;
+                    a_temp := 7;
 
                 end if;
             end if;
