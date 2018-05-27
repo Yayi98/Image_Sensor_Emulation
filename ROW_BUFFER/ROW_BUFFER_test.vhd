@@ -20,7 +20,6 @@ end ROW_BUFFER_test;
 architecture behavior of ROW_BUFFER_test is
     component ROW_BUFFER
         port (
-            debug   : out std_logic_vector(11 downto 0);
             ready   : out std_logic;
             clk     : in std_logic;
             wr      : in std_logic;
@@ -43,7 +42,6 @@ architecture behavior of ROW_BUFFER_test is
     signal rm_addr : std_logic_vector(12 downto 0);
     signal pxdata  : std_logic_vector(127 downto 0);
     signal ready   : std_logic;
-    signal debug   : std_logic_vector(11 downto 0);
     constant clk_period : time := 10 ns;
 begin
     uut : ROW_BUFFER port map(
@@ -55,7 +53,6 @@ begin
         rd      => rd,
         data    => data,
         shift   => shift,
-        debug   => debug,
         rm_addr => rm_addr,
         pxdata  => pxdata
     );
