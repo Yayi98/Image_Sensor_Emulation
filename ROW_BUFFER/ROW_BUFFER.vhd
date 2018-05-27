@@ -16,7 +16,7 @@ use IEEE.std_logic_unsigned.all;
 entity ROW_BUFFER is
     port (
         clk, wr, load, bit_md : in std_logic;                                          --bit_md: update shift register with new data
-        rd,ready : out std_logic;                                                      --ready indicator for synthesizer
+        rd,ready : out std_logic;                                                      --ready indicator for Sequencer
         data     : in std_logic_vector(11 downto 0);
         shift    : in std_logic_vector(127 downto 0);                                  --shift control lines
         rm_addr  : out std_logic_vector(12 downto 0);                                  --address for ram
